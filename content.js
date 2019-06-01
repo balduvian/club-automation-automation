@@ -63,27 +63,33 @@ function paymentRoutine()
 
 	itemParent.innerHTML += "<input type=\"button\" class=\"button bold\" value=\"Add\" onclick=\"POSMenu.isInitialised = false; showResources($(POSMenu.formId), 'https://ic.clubautomation.com/payment/right-side-view?add_item=1&amp;add_item_by_id=1&amp;' + $(this.form).serialize() , 'pos_right_block'); " + createTextFunction(findDeleteButton) + "\">";//closeModalForm();
 
+	//items table
+	
 	let itemsTable = document.getElementById("items_table");
 
-	console.log(itemsTable);
+	var config = { attributes: true, childList: true, subtree: true };
 
-	window.addEventListener("DOMContentLoaded", (event) => {
-		alert("hewwo");
-	});
-
-	itemsTable.addEventListener("load", (event) =>
-	{
-		//alert("hewwo");
-
-		let list = itemsTable.childNodes;
-		list.forEach((element) =>
-		{
-			if(element.textContent === "Delete")
-			{
-				element.textContent = "super";
+	var callback = function(mutationsList, observer) {
+		for(var mutation of mutationsList) {
+			if (mutation.type == 'childList') {
+				let list = itemsTable.childNodes;
+				list.forEach((element) =>
+				{
+					if(element.textContent === "Delete")
+					{
+						element.textContent = "super";
+					}
+				});
 			}
-		});
-	});
+			else if (mutation.type == 'attributes') {
+				console.log('The ' + mutation.attributeName + ' attribute was modified.');
+			}
+		}
+	};
+
+	var observer = new MutationObserver(callback);
+
+	observer.observe(itemsTable, config);
 }
 
 function checkURL()

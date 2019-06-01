@@ -1,0 +1,107 @@
+element {
+    --base-width: 25px;
+    --background-color: white;
+    --off-color: gray;
+    --on-color: lightblue;
+    --main-color: lightgray;
+    --animation-time: 0.25s;
+    --text-color: black;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+
+    display: grid;
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+}
+
+.holder {
+    display: grid;
+    position: relative;
+
+    width: 100%;
+    height: calc(var(--base-width) * 2);
+
+    grid-template-rows: 1fr, 1fr;
+    grid-template-columns: 1fr;
+}
+
+.label {
+    color: var(--text-color);
+    font-size: var(--base-width);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: var(--base-width);
+
+    display: block;
+    position: relative;
+    left: auto;
+    right: auto;
+}
+
+.switchBack {
+    width: calc(var(--base-width) * 4);
+    height: var(--base-width);
+    border-radius: calc(var(--base-width) / 2);
+
+    display: block;
+    position: relative;
+    left: auto;
+    right: auto;
+}
+
+.switchDot {
+    width: var(--base-width);
+    height: var(--base-width);
+    border-radius: calc(var(--base-width) / 2);
+    background-color: var(--main-color);
+}
+
+.switchBackAnimToOn {
+    animation-name: switchBackToOn;
+    animation-duration: var(--animation-time);
+    animation-direction: normal;
+    animation-iteration-count: 1;
+
+    background-color: var(--on-color);
+}
+
+.switchBackAnimToOff {
+    animation-name: switchBackToOn;
+    animation-duration: var(--animation-time);
+    animation-direction: reverse;
+    animation-iteration-count: 1;
+
+    background-color: var(--off-color);
+}
+
+.switchDotAnimToOn {
+    animation-name: switchDotToOn;
+    animation-duration: var(--animation-time);
+    animation-direction: normal;
+    animation-iteration-count: 1;
+
+    left: calc(100% - var(--base-width))
+}
+
+.switchDotAnimToOff {
+    animation-name: switchDotToOn;
+    animation-duration: var(--animation-time);
+    animation-direction: reverse;
+    animation-iteration-count: 1;
+
+    left: 0%;
+}
+
+@keyframes switchBackToOn {
+    from {background-color: gray;}
+    to {background-color: lightblue;}
+}
+
+@keyframes switchDotToOn {
+    from {left: 0%;}
+    to {left: calc(100% - var(--base-width))}
+}
