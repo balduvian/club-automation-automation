@@ -13,8 +13,7 @@ this.delLink.onclick = function() {
 
 const PAGE_MAIN = 0;
 const PAGE_CHECKOUT = 1;
-
-
+const PAGE_CHECKIN = 2;
 
 function findDeleteButton()
 {	
@@ -49,7 +48,7 @@ function createTextFunction(func)
 	return str.slice(str.indexOf("{"), str.length);
 }
 
-alert(createTextFunction(findDeleteButton));
+//alert(createTextFunction(findDeleteButton));
 
 function paymentRoutine()
 {
@@ -92,6 +91,48 @@ function paymentRoutine()
 	observer.observe(itemsTable, config);
 }
 
+function checkinRoutine()
+{
+	let CheckoutUrl = 'https://ic.clubautomation.com/payment?user_id=';
+	let middle = document.getElementById('checkin-middle');
+
+	let settings = {childList: true};
+
+	let mut = new MutationObserver((mutationsList, observer) =>
+	{
+		/* only create the checkout option if the user is a member */
+		let error = document.getElementById('checkin-error');
+		console.log(error);
+		if (error.children.length === 1)
+		{
+			return;
+		}
+
+		let uid = document.getElementById('user_id');
+
+		let link = CheckoutUrl + uid.value;
+
+		let uinf = document.getElementById('user-info');
+
+		let linkElement = document.createElement('a');
+		linkElement.textContent = 'Checkout';
+		let style = linkElement.style;
+
+		style.width = 'max-content';
+		style.height = '20px';
+		style.lineHeight = '20px';
+		style.fontSize = '20px';
+		style.display = 'block';
+		style.position = 'relative';
+
+		linkElement.href = link;
+
+		uinf.children[1].appendChild(linkElement);
+	});
+
+	mut.observe(middle, settings);
+}
+
 function checkURL()
 {
 	let url = window.location.href;
@@ -106,6 +147,11 @@ function checkURL()
 		return PAGE_CHECKOUT;
 	}
 
+	if(url.includes('checkin'))
+	{
+		return PAGE_CHECKIN;
+	}
+
 	return id;
 }
 
@@ -118,5 +164,8 @@ switch(pageID) {
 		break;
 	case PAGE_CHECKOUT:
 		paymentRoutine();
+		break;
+	case PAGE_CHECKIN:
+		checkinRoutine();
 		break;
 }

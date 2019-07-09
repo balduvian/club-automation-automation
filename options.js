@@ -1,7 +1,7 @@
 var base = document.body;
 var holders = [];
 
-var on = true;
+var auto_on = true;
 
 function createDiv(parent, className)
 {
@@ -26,6 +26,19 @@ function giveAnimation(div, animName) {
     div.classList.add(animName);
 }
 
+function setOn(callback) {
+    chrome.storage.local.get({on: value}, () => {
+        on = value;
+        callback();
+    });
+}
+
+function getOn(callback) {
+    chrome.storage.local.set('on', (result) => {
+        callback(result);
+    });
+}
+
 class Holder
 {
     constructor(parent)
@@ -33,7 +46,11 @@ class Holder
         this.holder = createDiv(parent, "holder")
         this.label = createPar(this.holder, "label", "turn on");
         this.switch = createDiv(this.holder, "switchBack");
+        this.dot = createDiv(this.switch, "switchDot");
 
+        this.switch.onclick = () => {
+
+        }
     }
 }
 
