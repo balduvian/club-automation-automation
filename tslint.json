@@ -1,0 +1,14 @@
+{
+	"rules":
+	{
+		"quotemark": {
+			"options": 
+			[
+				"single"
+			],
+			"severity": "error"
+		},
+		"typedef": false,
+		"semicolon": true
+	}
+}

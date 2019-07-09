@@ -1,22 +1,28 @@
-element {
+:root {
     --base-width: 25px;
     --background-color: white;
     --off-color: gray;
     --on-color: lightblue;
     --main-color: lightgray;
-    --animation-time: 0.25s;
+    --animation-time: 0.15s;
     --text-color: black;
+}
+
+html {
+    width: calc(var(--base-width) * 8);
+    height: fit-content;
 }
 
 body {
     margin: 0px;
-    padding: 0px;
+    padding: calc(var(--base-width) / 5);
 
     display: grid;
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
+    position: relative;
+    box-sizing: border-box;
+    
+    width: 100%;
+    height: 100%;
 }
 
 .holder {
@@ -26,38 +32,78 @@ body {
     width: 100%;
     height: calc(var(--base-width) * 2);
 
-    grid-template-rows: 1fr, 1fr;
+    grid-template-rows: var(--base-width) var(--base-width);
     grid-template-columns: 1fr;
+}
+
+.defaultLabel {
+    color: var(--text-color);
+    font-size: var(--base-width);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    line-height: calc(var(--base-width) * 2);
+
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .label {
     color: var(--text-color);
     font-size: var(--base-width);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     line-height: var(--base-width);
 
     display: block;
     position: relative;
-    left: auto;
-    right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.refreshButton {
+    display: block;
+    position: relative;
+    height: calc(var(--base-width) * 0.75);
+    width: calc(var(--base-width) * 0.75);
+    border-radius: calc(var(--base-width) * 0.2);
+    background-color: var(--main-color);
+
+    margin-top: calc(var(--base-width) * 0.125);
+    margin-left: auto;
+    margin-right: auto;
+
+    box-shadow: 0 0 0px 1px black;
 }
 
 .switchBack {
-    width: calc(var(--base-width) * 4);
-    height: var(--base-width);
+    width: calc(var(--base-width) * 3);
+    height: calc(var(--base-width) * 0.75);
     border-radius: calc(var(--base-width) / 2);
 
     display: block;
     position: relative;
-    left: auto;
-    right: auto;
+    margin-top: calc(var(--base-width) * 0.125);
+    margin-left: auto;
+    margin-right: auto;
+
+    box-shadow: 0 0 0px 1px black;
 }
 
 .switchDot {
-    width: var(--base-width);
-    height: var(--base-width);
-    border-radius: calc(var(--base-width) / 2);
+    width: calc(var(--base-width) * 0.75);
+    height: calc(var(--base-width) * 0.75);
+    border-radius: calc(var(--base-width) / 1.5);
     background-color: var(--main-color);
+
+    position: absolute;
+    display: block;
+
+    box-shadow: 0 0 0px 1px black;
 }
 
 .switchBackAnimToOn {
@@ -84,7 +130,7 @@ body {
     animation-direction: normal;
     animation-iteration-count: 1;
 
-    left: calc(100% - var(--base-width))
+    left: calc(100% - calc(var(--base-width) * 0.75));
 }
 
 .switchDotAnimToOff {
@@ -103,5 +149,5 @@ body {
 
 @keyframes switchDotToOn {
     from {left: 0%;}
-    to {left: calc(100% - var(--base-width))}
+    to {left: calc(100% - calc(var(--base-width) * 0.75))}
 }
